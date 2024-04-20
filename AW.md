@@ -8,15 +8,13 @@ Remember this comes from the kickstarter repo
 
 # TODO
 
+- disable page up and down
 - splits/wincmd like <ctrl>w v|s and <ctrl>w <ctrl>o
 - consider telescope file browser https://github.com/nvim-telescope/telescope-file-browser.nvim
-- Python setup with Mason 
-- Telescope
-  - gr go to / find references?
-  - gd go to / find definition?
-- explore
-  - quickfix
-  - undotree
+- Explore treesitter
+- Different windows/buffers
+- explore quickfix
+- explore undotree
 
 # Stuff
 
@@ -42,6 +40,25 @@ y | yank
 yap | yank around paragraph
 p | paste
 C-p | complete word under cursor
+gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
+
+Jumps
+C-o and C-i | go through jumplist, i.e previous cursor positions
+C-t jump in tag stack
+Both work after e.g. <leader>gd
+gc | comment visual region
+
+## Custom keybindings
+
+- gr | go to / find references
+- gd | go to / find definition
+- <leader>sf | search files
+- <leader>sk | search keymap
+- <leader>sh | search help
+
+Completion
+- C-y | accept
+- C-n/p | next/prev item
 
 ## Motions
 
@@ -74,7 +91,6 @@ F<CHAR> | go to prev occurence of CHAR
 ;, | next/previous occurence
 same for t but unTil character
 
-
 ## Misc
 
 - leader key: namespace for custom keymaps (think shortcut)
@@ -90,4 +106,8 @@ same for t but unTil character
 
 
 
+# Log
 
+## Python
+
+Installed NPM with brew so that I could install pyright with Mason
