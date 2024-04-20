@@ -95,6 +95,10 @@ vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- AW disabling pageup and down which made my hand move from homerow
+vim.keymap.set('n', '<PageUp>', '<cmd>echo "Use C-y|u|b to move!!"<CR>')
+vim.keymap.set('n', '<PageDown>', '<cmd>echo "Use C-e|d|f to move!!"<CR>')
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -620,6 +624,14 @@ require('lazy').setup({
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
+          -- AW confirm selection with tab. Loosely inspired by https://github.com/hrsh7th/nvim-cmp/discussions/1498
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.confirm()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
           -- Select the [n]ext item
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item

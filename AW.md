@@ -1,34 +1,28 @@
-Remember this comes from the kickstarter repo
+# TODO
+
+- consider telescope file browser https://github.com/nvim-telescope/telescope-file-browser.nvim
+- Explore treesitter
+- Different windows/buffers/splits
+- explore quickfix
+- explore undotree
 
 # Learn
 
 - Train with https://github.com/ThePrimeagen/vim-be-good
-- :Tutor tutor
-
-
-# TODO
-
-- disable page up and down
-- splits/wincmd like <ctrl>w v|s and <ctrl>w <ctrl>o
-- consider telescope file browser https://github.com/nvim-telescope/telescope-file-browser.nvim
-- Explore treesitter
-- Different windows/buffers
-- explore quickfix
-- explore undotree
+:Tutor tutor
+:help or :h | helpV
+:h keyword | help for keyword
+<leader>sh | shortcut search help (custom)
 
 # Stuff
 
+S | delete entire line and change to insert mode
 :e $MYVIMRC | edit config
 u | undo
 i | insert before cursor
 a | insert after cursor
-:help or :h | help
-:h keyword | help for keyword
-<leader>sh | shortcut search help
-:Lazy | see plugin status
 cw | change word (everything up from cursor)
 ciw | change inside word
-r<CHAR> | replace character under cursor with CHAR
 C-6 | go back to previous file (<CTRL>^)
 S-k | display type definition
 v | visual mode
@@ -41,6 +35,11 @@ yap | yank around paragraph
 p | paste
 C-p | complete word under cursor
 gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
+r<CHAR> | replace character under cursor with CHAR
+R | replace mode, i.e. keep replacing
+:s/thee/the/g | replace thee for the in line (g for all occurences per line)
+:%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
+:!cmd | to run cmd
 
 Jumps
 C-o and C-i | go through jumplist, i.e previous cursor positions
@@ -72,6 +71,11 @@ $ | end of line
 % | move to matching parenthesis or keyword
 { and } | move by paragraph (non white space segment)
 C-d and C-u | to move half page down or up
+C-f and C-b | to move full page down or up
+C-e and C-y | to move one line down or up
+G | move to bottom
+gg | move to start
+
 TODO recommended: remap to <C-d>zz for centering
 :<NO> | move to line number NO
 
@@ -85,6 +89,7 @@ TODO recommended: remap to <C-d>zz for centering
 # | search upwards with word under cursor
 n | next results
 N | prev results
+C-o | to go back where you came from
 TODO recommended: remap to nzzzv for centering
 f<CHAR> | go to next occurence of CHAR
 F<CHAR> | go to prev occurence of CHAR
@@ -102,6 +107,7 @@ same for t but unTil character
 - Telescope!
 - :Mason for LSP
   - X to uninstall
+:Lazy | see plugin status
 
 
 
