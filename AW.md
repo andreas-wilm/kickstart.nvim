@@ -35,24 +35,40 @@ yap | yank around paragraph
 p | paste
 C-p | complete word under cursor
 gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
+~ | toggle case
 r<CHAR> | replace character under cursor with CHAR
 R | replace mode, i.e. keep replacing
 :s/thee/the/g | replace thee for the in line (g for all occurences per line)
 :%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
 :!cmd | to run cmd
+zz | center current line on screen
+gw{motion}  | reformat. e.g. } for paragraph. See also gq
+x or X | delete character forward / backward
 
 Jumps
 C-o and C-i | go through jumplist, i.e previous cursor positions
 C-t jump in tag stack
 Both work after e.g. <leader>gd
 gc | comment visual region
+[m or [M | jump to function start or end (works in Python at least)
+
+Insert mode special keys
+C-o | execute once in normal mode
+C-w | delete word backwards
+C-p | autocompletion
+C-u | delete current line
+:help ins-special-keys
+C-c | go to normal mode (like ESC)
+C-h | delete inserted character, but see https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
 
 ## Custom keybindings
 
 - gr | go to / find references
 - gd | go to / find definition
+Telescope
 - <leader>sf | search files
 - <leader>sk | search keymap
+- <leader>sh | search help
 - <leader>sh | search help
 
 Completion
@@ -117,3 +133,6 @@ same for t but unTil character
 ## Python
 
 Installed NPM with brew so that I could install pyright with Mason
+Debugging of pyright: ~/.local/share/nvim/mason/bin/pyright-langserver --stdio
+On Ubuntu 22.04 I couldn't pyright to work because of node problems. Using python-lsp-server instead
+
