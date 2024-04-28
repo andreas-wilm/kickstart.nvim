@@ -108,6 +108,16 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+
+-- AW vlang recognized as verilog
+vim.cmd 'autocmd BufRead,BufNewFile *.v set filetype=v'
+-- the following doesnt seem to work
+-- vim.filetype.add {
+-- pattern = {
+--    ['*.v$'] = { 'v', { priority = math.huge } },
+--  },
+-- }
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -818,6 +828,5 @@ require('lazy').setup({
     },
   },
 })
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

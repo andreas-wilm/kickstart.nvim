@@ -1,10 +1,11 @@
 # TODO
 
-- consider telescope file browser https://github.com/nvim-telescope/telescope-file-browser.nvim
-- Explore treesitter
 - Different windows/buffers/splits
-- explore quickfix
 - explore undotree
+- modularize init.vim 
+ https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/
+- override filetype for v from verilog to v (:set ft=v)
+- i" etc searches on entire line?
 
 # Learn
 
@@ -41,9 +42,15 @@ R | replace mode, i.e. keep replacing
 :s/thee/the/g | replace thee for the in line (g for all occurences per line)
 :%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
 :!cmd | to run cmd
+:r!cmd | run cmd and insert output
 zz | center current line on screen
 gw{motion}  | reformat. e.g. } for paragraph. See also gq
 x or X | delete character forward / backward
+df<char> or dF<char> | delete forward/backward until char
+- same for c or y
+- use t to delete/change/yank until rather than including
+- can also used with count before f or t, e.g. y2t,
+> or < or = | indent, deindent or autoindent
 
 Jumps
 C-o and C-i | go through jumplist, i.e previous cursor positions
@@ -51,6 +58,13 @@ C-t jump in tag stack
 Both work after e.g. <leader>gd
 gc | comment visual region
 [m or [M | jump to function start or end (works in Python at least)
+
+Splits
+:sp filename  | Open a file in a new buffer and split window
+C-ws | Split windows
+C-ww | switch between windows
+C-wq | Quit a window
+C-wv | Split windows vertically
 
 Insert mode special keys
 C-o | execute once in normal mode
@@ -119,11 +133,12 @@ same for t but unTil character
 - vim.opt is used to set options from within lua/config
 - Live testing of options: :lua vim.opt.number = false
 - Diagnostics are for LSP
+- :LspInfo to get more Lsp info
 - Lazy is a package manager
 - Telescope!
 - :Mason for LSP
   - X to uninstall
-:Lazy | see plugin status
+- :Lazy | see plugin status
 
 
 
@@ -135,4 +150,8 @@ same for t but unTil character
 Installed NPM with brew so that I could install pyright with Mason
 Debugging of pyright: ~/.local/share/nvim/mason/bin/pyright-langserver --stdio
 On Ubuntu 22.04 I couldn't pyright to work because of node problems. Using python-lsp-server instead
+
+## V
+
+Install v-analyzer as lsp
 
