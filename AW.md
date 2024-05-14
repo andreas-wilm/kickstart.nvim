@@ -9,10 +9,9 @@
 
 # Learn
 
-- Train with https://github.com/ThePrimeagen/vim-be-good
-:Tutor tutor
 :help or :h | helpV
 :h keyword | help for keyword
+:h key | help for key
 <leader>sh | shortcut search help (custom)
 
 # Stuff
@@ -26,9 +25,8 @@ cw | change word (everything up from cursor)
 ciw | change inside word
 C-6 | go back to previous file (<CTRL>^)
 S-k | display type definition
-v | visual mode
-V | visual line mode
-vi" | select everything within quotes
+. | repeat last change
+
 d | delete
 dap | delete around paragraph
 y | yank
@@ -50,14 +48,44 @@ df<char> or dF<char> | delete forward/backward until char
 - same for c or y
 - use t to delete/change/yank until rather than including
 - can also used with count before f or t, e.g. y2t,
-> or < or = | indent, deindent or autoindent
+d/<word> and y/word | delete or yank until word. line wraps! considering using v/<word>
+> or < or = | indent, deindent or autoindent (works with motions)
 
 Jumps
 C-o and C-i | go through jumplist, i.e previous cursor positions
 C-t jump in tag stack
 Both work after e.g. <leader>gd
 gc | comment visual region
-[m or [M | jump to function start or end (works in Python at least)
+[[ and ]] | jump to beginning of next/last function (not in Nim?)
+][ and [] | jump to next/previous end of function (not in Nim?)
+[m or [M | jump to start of next/previous function start (how different from above)?
+
+Macrosi (from https://wicowen.github.io/2016-0420-1041-Vim-marco-cheat-sheet/)
+qr : start recording to register 'r'
+q : stop recording
+@r : execute your 'r' macro
+10@r repeat 10 time 'r' macro
+@@ : execute macro again
+
+Registers:
+:reg | list all registers
+"<name><cmd> | run command cmd on register name, e.g. "ay and "ap
+Special registers:
+- "_ | forget. Example "_dd delete a line without sticking it in the registers
+- ". | last inserted text
+- "" | unnamed (default)
+- "0 | most recent yanked
+- "1 | most recent deleted
+- "2 | previous deletion etc.
+
+visual
+v | visual mode
+V | visual line mode
+o | jump between visually selected area start/end
+gv | reselect previously visually selected area
+C-v | rectangle selection (works with motion)
+C-a | increment number under cursor or first incremental thing in selection
+vi" | select everything within quotes
 
 Splits
 :sp filename  | Open a file in a new buffer and split window
@@ -88,6 +116,12 @@ Telescope
 Completion
 - C-y | accept
 - C-n/p | next/prev item
+
+mini
+- Add surrounding with sa (in visual mode or on motion).
+- Delete surrounding with sd.
+- Replace surrounding with sr
+
 
 ## Motions
 
