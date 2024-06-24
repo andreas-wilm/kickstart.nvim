@@ -159,6 +159,35 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
+  {
+    'folke/flash.nvim', -- AW
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      -- AW: r takes an action and motion: e.g. yr(search)w or yr(search)y and you have the selected 
+      -- word/line yanked and are back where you where
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
+  -- AW try again once this error is gone
+  --     Error executing  vim.on_key Lua callback: vim/_editor.lua:0: Error executing 'on_key' with ns_ids '2'
+  --     Messages: Vim:E1174: String required for argument 1
+  -- stack traceback:
+  --         [C]: in function 'error'
+  --         vim/_editor.lua: in function <vim/_editor.lua:0>
+  -- {
+  --   'm4xshen/hardtime.nvim',
+  --   dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
+  --   opts = {},
+  -- },
+
   'ThePrimeagen/vim-be-good', -- AW
 
   -- NOTE: Plugins can also be added by using a table,

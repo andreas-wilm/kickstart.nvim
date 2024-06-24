@@ -9,68 +9,82 @@
 
 # Learn
 
-:help or :h | helpV
-:h keyword | help for keyword
-:h key | help for key
-<leader>sh | shortcut search help (custom)
+- :help or :h | helpV
+- :h keyword | help for keyword
+- :h key | help for key
+- <leader>sh | shortcut search help (custom)
 
 # Stuff
 
-S | delete entire line and change to insert mode
-:e $MYVIMRC | edit config
-u | undo
-i | insert before cursor
-a | insert after cursor
-cw | change word (everything up from cursor)
-ciw | change inside word
-C-6 | go back to previous file (<CTRL>^)
-S-k | display type definition
-. | repeat last change
+- S | delete entire line and change to insert mode
+- :e $MYVIMRC | edit config
+- u | undo
+- i | insert before cursor
+- a | insert after cursor
+- cw | change word (everything up from cursor)
+- ciw | change inside word
+- C-6 | go back to previous file (<CTRL>^)
+- S-k | display type definition
+- . | repeat last change
 
-d | delete
-dap | delete around paragraph
-y | yank
-yap | yank around paragraph
-p | paste
-C-p | complete word under cursor
-gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
-~ | toggle case
-r<CHAR> | replace character under cursor with CHAR
-R | replace mode, i.e. keep replacing
-:s/thee/the/g | replace thee for the in line (g for all occurences per line)
-:%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
-:!cmd | to run cmd
-:r!cmd | run cmd and insert output
-zz | center current line on screen
-gw{motion}  | reformat. e.g. } for paragraph. See also gq
-x or X | delete character forward / backward
-df<char> or dF<char> | delete forward/backward until char
-- same for c or y
-- use t to delete/change/yank until rather than including
-- can also used with count before f or t, e.g. y2t,
-d/<word> and y/word | delete or yank until word. line wraps! considering using v/<word>
-> or < or = | indent, deindent or autoindent (works with motions)
+- d | delete
+- dap | delete around paragraph
+- y | yank
+- yap | yank around paragraph
+- p | paste
+- C-p | complete word under cursor
+- gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
+- ~ | toggle case
+- r<CHAR> | replace character under cursor with CHAR
+- R | replace mode, i.e. keep replacing
+- :s/thee/the/g | replace thee for the in line (g for all occurences per line)
+- :%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
+- :!cmd | to run cmd
+- :r!cmd | run cmd and insert output
+- zz | center current line on screen
+- gw{motion}  | reformat. e.g. } for paragraph. See also gq
+- x or X | delete character forward / backward
+- df<char> or dF<char> | delete forward/backward until char
+  - same for c or y
+  - use t to delete/change/yank until rather than including
+  - can also used with count before f or t, e.g. y2t,
+- d/<word> and y/word | delete or yank until word. line wraps! considering using v/<word>
+- > or < or = | indent, deindent or autoindent (works with motions)
+- gcc | un/comment visual region
+- gc | un/comment visual region
 
-Jumps
-C-o and C-i | go through jumplist, i.e previous cursor positions
-C-t jump in tag stack
-Both work after e.g. <leader>gd
-gc | comment visual region
-[[ and ]] | jump to beginning of next/last function (not in Nim?)
-][ and [] | jump to next/previous end of function (not in Nim?)
-[m or [M | jump to start of next/previous function start (how different from above)?
+# Marks: store positions in a file
 
-Macrosi (from https://wicowen.github.io/2016-0420-1041-Vim-marco-cheat-sheet/)
-qr : start recording to register 'r'
-q : stop recording
-@r : execute your 'r' macro
-10@r repeat 10 time 'r' macro
-@@ : execute macro again
+- ma | mark position into register a
+- `a | return to the marked position with a
+- 'a | move to the line with marked position with a
+- :marks | display marks
 
-Registers:
-:reg | list all registers
-"<name><cmd> | run command cmd on register name, e.g. "ay and "ap
+
+# Jumps
+
+- C-o and C-i | go through jumplist, i.e previous cursor positions
+- C-t jump in tag stack
+- Both work after e.g. <leader>gd
+- [[ and ]] | jump to beginning of next/last function (not in Nim?)
+- ][ and [] | jump to next/previous end of function (not in Nim?)
+- [m or [M | jump to start of next/previous function start (how different from above)?
+
+# Macros (from https://wicowen.github.io/2016-0420-1041-Vim-marco-cheat-sheet/)
+
+- qr : start recording to register 'r'
+- q : stop recording
+- @r : execute your 'r' macro
+- 10@r repeat 10 time 'r' macro
+- @@ : execute macro again
+
+# Registers: store and retrieve text
+
+- :reg | list all registers
+- "<name><cmd> | run command cmd on register name, e.g. "ay and "ap
+
 Special registers:
+
 - "_ | forget. Example "_dd delete a line without sticking it in the registers
 - ". | last inserted text
 - "" | unnamed (default)
@@ -78,46 +92,53 @@ Special registers:
 - "1 | most recent deleted
 - "2 | previous deletion etc.
 
-visual
-v | visual mode
-V | visual line mode
-o | jump between visually selected area start/end
-gv | reselect previously visually selected area
-C-v | rectangle selection (works with motion)
-C-a | increment number under cursor or first incremental thing in selection
-vi" | select everything within quotes
+# visual
 
-Splits
-:sp filename  | Open a file in a new buffer and split window
-C-ws | Split windows
-C-ww | switch between windows
-C-wq | Quit a window
-C-wv | Split windows vertically
+- v | visual mode
+- V | visual line mode
+- o | jump between visually selected area start/end
+- gv | reselect previously visually selected area
+- C-v | rectangle selection (works with motion)
+- C-a | increment number under cursor or first incremental thing in selection
+- vi" | select everything within quotes
 
-Insert mode special keys
-C-o | execute once in normal mode
-C-w | delete word backwards
-C-p | autocompletion
-C-u | delete current line
-:help ins-special-keys
-C-c | go to normal mode (like ESC)
-C-h | delete inserted character, but see https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+# Splits
 
-## Custom keybindings
+- :sp filename  | Open a file in a new buffer and split window
+- C-ws | Split windows
+- C-ww | switch between windows
+- C-wq | Quit a window
+- C-wv | Split windows vertically
+ 
+# Insert mode special keys
+
+- C-o | execute once in normal mode
+- C-w | delete word backwards
+- C-p | autocompletion
+- C-u | delete current line
+- :help ins-special-keys
+- C-c | go to normal mode (like ESC)
+- C-h | delete inserted character, but see https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+
+# Custom keybindings
 
 - gr | go to / find references
 - gd | go to / find definition
+
 Telescope
+
 - <leader>sf | search files
 - <leader>sk | search keymap
 - <leader>sh | search help
 - <leader>sh | search help
 
 Completion
+
 - C-y | accept
 - C-n/p | next/prev item
 
-mini
+Mini
+
 - Add surrounding with sa (in visual mode or on motion).
 - Delete surrounding with sd.
 - Replace surrounding with sr
@@ -125,40 +146,42 @@ mini
 
 ## Motions
 
-hjkl | navigate
-w | forward word
-e | forward word (end of word)
-b | backward word
-0 | beginning of line
-^ | first non-blank character of line
-$ | end of line
-% | move to matching parenthesis or keyword
-{ and } | move by paragraph (non white space segment)
-C-d and C-u | to move half page down or up
-C-f and C-b | to move full page down or up
-C-e and C-y | to move one line down or up
-G | move to bottom
-gg | move to start
+- hjkl | navigate
+- w | forward word
+- e | forward word (end of word)
+- b | backward word
+- 0 | beginning of line
+- ^ | first non-blank character of line
+- $ | end of line
+- % | move to matching parenthesis or keyword
+- { and } | move by paragraph (non white space segment)
+- C-d and C-u | to move half page down or up
+- C-f and C-b | to move full page down or up
+- C-e and C-y | to move one line down or up
+- G | move to bottom
+- gg | move to start
+- - | beginning of one line up 
+- + | beginning of one line down 
 
-TODO recommended: remap to <C-d>zz for centering
-:<NO> | move to line number NO
+- TODO recommended: remap to <C-d>zz for centering
+- :<NO> | move to line number NO
 
 
 
 ## Search
 
-/ | search downwards
-* | search downwards for word under cursor (<ESC> to stop)
-? | search backwards
-# | search upwards with word under cursor
-n | next results
-N | prev results
-C-o | to go back where you came from
-TODO recommended: remap to nzzzv for centering
-f<CHAR> | go to next occurence of CHAR
-F<CHAR> | go to prev occurence of CHAR
-;, | next/previous occurence
-same for t but unTil character
+- / | search downwards
+- * | search downwards for word under cursor (<ESC> to stop)
+- ? | search backwards
+- # | search upwards with word under cursor
+- n | next results
+- N | prev results
+- C-o | to go back where you came from
+- TODO recommended: remap to nzzzv for centering
+- f<CHAR> | go to next occurence of CHAR
+- F<CHAR> | go to prev occurence of CHAR
+- ;, | next/previous occurence
+- same for t but unTil character
 
 ## Misc
 
