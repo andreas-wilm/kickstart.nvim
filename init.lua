@@ -168,10 +168,11 @@ require('lazy').setup({
     keys = {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      -- AW: r takes an action and motion: e.g. yr(search)w or yr(search)y and you have the selected 
-      -- word/line yanked and are back where you where
+      -- AW: r takes an action and motion: e.g. yr(search)w or yr(search)y and you have the selected word/line yanked and are 
+      -- https://kb.iany.me/para/lets/v/Vim/Neovim+Flash+Remote "The remote action, which default key binding is r, can perform an operator in a remote location. For example, I'm in a string and want to paste something elsewhere in the screen. Use yr to start yank in a remote location. Use search labels to locate the cursor. Now complete the the pending actions for the yank operator, such as iw. The cursor is reverted to the original location. Use p to paste the copied text."
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      -- AW no idea how this works
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },

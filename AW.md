@@ -6,6 +6,9 @@
  https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/
 - override filetype for v from verilog to v (:set ft=v)
 - i" etc searches on entire line?
+- flash docu
+
+remote actions flow (e.g flash)
 
 # Learn
 
@@ -26,7 +29,8 @@
 - C-6 | go back to previous file (<CTRL>^)
 - S-k | display type definition
 - . | repeat last change
-
+- cc | delete line and go into insert mode
+- C | delete until end of line and go into insert mode
 - d | delete
 - dap | delete around paragraph
 - y | yank
@@ -34,7 +38,7 @@
 - p | paste
 - C-p | complete word under cursor
 - gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
-- ~ | toggle case
+- ~ | toggle case. Also g~motion like g~w or g~i(
 - r<CHAR> | replace character under cursor with CHAR
 - R | replace mode, i.e. keep replacing
 - :s/thee/the/g | replace thee for the in line (g for all occurences per line)
@@ -50,14 +54,15 @@
   - can also used with count before f or t, e.g. y2t,
 - d/<word> and y/word | delete or yank until word. line wraps! considering using v/<word>
 - > or < or = | indent, deindent or autoindent (works with motions)
+- gg=G | reindent whole file
 - gcc | un/comment visual region
 - gc | un/comment visual region
 
 # Marks: store positions in a file
 
 - ma | mark position into register a
-- `a | return to the marked position with a
 - 'a | move to the line with marked position with a
+- `a | return to the marked position with a
 - :marks | display marks
 
 
