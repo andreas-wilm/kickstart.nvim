@@ -1,14 +1,15 @@
 # TODO
 
-- Different windows/buffers/splits
+- Different buffers:
+  :bnext
+  :bprevious
+  telescope: leader leader
 - explore undotree
 - modularize init.vim 
  https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/
 - override filetype for v from verilog to v (:set ft=v)
 - i" etc searches on entire line?
-- flash docu
-
-remote actions flow (e.g flash)
+- flash docu incl remote actions 
 
 # Learn
 
@@ -16,6 +17,10 @@ remote actions flow (e.g flash)
 - :h keyword | help for keyword
 - :h key | help for key
 - <leader>sh | shortcut search help (custom)
+
+# Notes
+
+- telescope <leader>s and flash search s clash. Type fast for telescope use
 
 # Stuff
 
@@ -43,10 +48,11 @@ remote actions flow (e.g flash)
 - R | replace mode, i.e. keep replacing
 - :s/thee/the/g | replace thee for the in line (g for all occurences per line)
 - :%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
-- :!cmd | to run cmd
-- :r!cmd | run cmd and insert output
+- :!cmd | to run cmd (optionally works on and replaces selection)
+- :r !cmd | run cmd and insert output
+- :r FILE | retrieves/inserts files
 - zz | center current line on screen
-- gw{motion}  | reformat. e.g. } for paragraph. See also gq
+- gw{motion}  | reformat. e.g. } for paragraph. See also gq. gq might have trouble with LSP
 - x or X | delete character forward / backward
 - df<char> or dF<char> | delete forward/backward until char
   - same for c or y
@@ -135,7 +141,7 @@ Telescope
 - <leader>sf | search files
 - <leader>sk | search keymap
 - <leader>sh | search help
-- <leader>sh | search help
+- <leader><leader>| search buffers
 
 Completion
 
@@ -201,7 +207,10 @@ Mini
 - :Mason for LSP
   - X to uninstall
 - :Lazy | see plugin status
-
+- C-g | show location in file and file status
+- gx | open link under cursor
+- gf | open file under cursor
+- C-a or C-x | increment or decrement selected integer/s
 
 
 
