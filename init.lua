@@ -202,7 +202,7 @@ require('lazy').setup({
     init = function()
       vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', { desc = 'Open Iron REPL' })
       -- vim.keymap.set('n', '<leader>rr', '<cmd>IronRestart<cr>', { desc = 'Restart Iron REPL' })
-      -- use split shortcuts instead vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', { desc = 'Focus Iron REPL' })
+      -- use split shortcuts instead of: vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', { desc = 'Focus Iron REPL' })
       vim.keymap.set('n', '<leader>rh', '<cmd>IronHide<cr>', { desc = 'Hide Iron REPL' })
     end,
     config = function()
@@ -222,12 +222,12 @@ require('lazy').setup({
           highlight = { italic = true },
         },
         keymaps = {
-          -- send_motion = '<c-c>',
-          send_line = '<leader>r<cr>',
-          send_file = '<leader>rf',
-          send_motion = '<leader>rv',
-          visual_send = '<leader>rv',
+          -- only allowing visuals
+          visual_send = '<leader>r<cr>',
           exit = '<leader>rq',
+          -- send_line = '<leader>r<cr>',
+          -- send_file = '<leader>rf',
+          -- send_motion = '<leader>rv',
           -- clear = '<leader>rc',
           -- send_mark = '<leader>rsm',
           -- mark_motion = '<leader>rmc',
