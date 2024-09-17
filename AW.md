@@ -5,11 +5,11 @@
   :bprevious
   telescope: leader leader
 - explore undotree
-- modularize init.vim 
+- modularize init.vim
  https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/
 - override filetype for v from verilog to v (:set ft=v)
 - i" etc searches on entire line?
-- flash docu incl remote actions 
+- flash docu incl remote actions
 
 # Learn
 
@@ -24,7 +24,7 @@
 
 # Stuff
 
-- S | delete entire line and change to insert mode
+- S | delete entire line and change to insert mode (overwritten by Flash)
 - :e $MYVIMRC | edit config
 - u | undo
 - i | insert before cursor
@@ -41,13 +41,14 @@
 - y | yank
 - yap | yank around paragraph
 - p | paste
-- C-p | complete word under cursor
 - gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
 - ~ | toggle case. Also g~motion like g~w or g~i(
 - r<CHAR> | replace character under cursor with CHAR
 - R | replace mode, i.e. keep replacing
 - :s/thee/the/g | replace thee for the in line (g for all occurences per line)
 - :%s/thee/the/gc | replace thee for the in file and ask for conformation (c)
+- g/pattern/d | delete all lines with pattern
+- v/pattern/d | delete all lines without pattern
 - :!cmd | to run cmd (optionally works on and replaces selection)
 - :r !cmd | run cmd and insert output
 - :r FILE | retrieves/inserts files
@@ -77,9 +78,10 @@
 - C-o and C-i | go through jumplist, i.e previous cursor positions
 - C-t jump in tag stack
 - Both work after e.g. <leader>gd
-- [[ and ]] | jump to beginning of next/last function (not in Nim?)
-- ][ and [] | jump to next/previous end of function (not in Nim?)
-- [m or [M | jump to start of next/previous function start (how different from above)?
+- [[ and ]] | jump to beginning of next/last function
+- ][ and [] | jump to next/previous function end
+- [[V][ select function from anywhere within function
+- [m or [M | jump to start of next/previous function start
 
 # Macros (from https://wicowen.github.io/2016-0420-1041-Vim-marco-cheat-sheet/)
 
@@ -110,7 +112,8 @@ Special registers:
 - o | jump between visually selected area start/end
 - gv | reselect previously visually selected area
 - C-v | rectangle selection (works with motion)
-- C-a | increment number under cursor or first incremental thing in selection
+- C-a | increment number under cursor or first thing to increment in selection
+- C-x | decrement number under cursor or first thing to decrement in selection
 - vi" | select everything within quotes
 
 # Splits
@@ -120,16 +123,23 @@ Special registers:
 - C-ww | switch between windows
 - C-wq | Quit a window
 - C-wv | Split windows vertically
- 
+
 # Insert mode special keys
 
 - C-o | execute once in normal mode
 - C-w | delete word backwards
-- C-p | autocompletion
+- C-p | autocompletion (see below)
 - C-u | delete current line
 - :help ins-special-keys
 - C-c | go to normal mode (like ESC)
 - C-h | delete inserted character, but see https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+
+# Completion
+
+- C-p | completion (in insert mode)
+- C-n/p | next/prev item
+- C-y | accept
+
 
 # Custom keybindings
 
@@ -142,11 +152,10 @@ Telescope
 - <leader>sk | search keymap
 - <leader>sh | search help
 - <leader><leader>| search buffers
-
-Completion
-
-- C-y | accept
-- C-n/p | next/prev item
+- <leader>fb | file browser
+  - C-e | home
+  - <bs> or C-g | parent dir
+  - C-f | toggle browser
 
 Mini
 
@@ -171,8 +180,8 @@ Mini
 - C-e and C-y | to move one line down or up
 - G | move to bottom
 - gg | move to start
-- - | beginning of one line up 
-- + | beginning of one line down 
+- - | beginning of one line up
+- + | beginning of one line down
 
 - TODO recommended: remap to <C-d>zz for centering
 - :<NO> | move to line number NO
@@ -222,7 +231,4 @@ Installed NPM with brew so that I could install pyright with Mason
 Debugging of pyright: ~/.local/share/nvim/mason/bin/pyright-langserver --stdio
 On Ubuntu 22.04 I couldn't pyright to work because of node problems. Using python-lsp-server instead
 
-## V
-
-Install v-analyzer as lsp
 

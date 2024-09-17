@@ -1,3 +1,7 @@
+if vim.g.neovide then
+  vim.o.guifont = 'Hack Nerd Font Mono:h16'
+end
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -6,6 +10,9 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
+
+-- AW change directory to opened file
+vim.opt.autochdir = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -108,6 +115,13 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.api.nvim_create_user_command('WQ', 'wq', {})
+vim.api.nvim_create_user_command('Wq', 'wq', {})
+vim.api.nvim_create_user_command('W', 'w', {})
+vim.api.nvim_create_user_command('Qa', 'qa', {})
+vim.api.nvim_create_user_command('Q', 'q', {})
+-- not allowed unfortunately vim.api.nvim_create_user_command('Q!', 'q!', {})
+
 -- ' P' for pasting but keeping the paste register: i.e keep the original yank
 -- https://youtu.be/qZO9A5F6BZs?si=LYLcb5SKOsix6rZy&t=376
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -200,7 +214,7 @@ require('lazy').setup({
     --
     cmd = { 'IronRepl', 'IronFocus' },
     init = function()
-      vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', { desc = 'Open Iron REPL' })
+      vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', { desc = 'Open Iron REPL' }) -- AW actually a toggle so no idea with IronHide is needed
       -- vim.keymap.set('n', '<leader>rr', '<cmd>IronRestart<cr>', { desc = 'Restart Iron REPL' })
       -- use split shortcuts instead of: vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', { desc = 'Focus Iron REPL' })
       vim.keymap.set('n', '<leader>rh', '<cmd>IronHide<cr>', { desc = 'Hide Iron REPL' })
@@ -420,6 +434,13 @@ require('lazy').setup({
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
     end,
+  },
+
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+    -- open file_browser with the path of the current buffer
+    vim.keymap.set('n', '<space>fb', ':Telescope file_browser path=%:p:h select_buffer=true<CR>'),
   },
 
   { -- LSP Configuration & Plugins
@@ -833,6 +854,8 @@ require('lazy').setup({
       end
 
       require('mini.trailspace').setup {}
+
+      -- require('mini.splitjoin').setup {}
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
