@@ -3,6 +3,7 @@
 - Different buffers:
   :bnext
   :bprevious
+  :bd | delete buffer (don't quit vim)
   telescope: leader leader
 - explore undotree
 - modularize init.vim
@@ -64,6 +65,7 @@
 - gg=G | reindent whole file
 - gcc | un/comment visual region
 - gc | un/comment visual region
+- ]d and [d | go to next/previous diagnostic message
 
 # Marks: store positions in a file
 
