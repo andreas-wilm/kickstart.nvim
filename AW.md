@@ -22,6 +22,7 @@
 # Notes
 
 - telescope <leader>s and flash search s clash. Type fast for telescope use
+- markdown headers can be jumped as usual with [[ and ]]
 
 # Stuff
 
@@ -65,7 +66,6 @@
 - gg=G | reindent whole file
 - gcc | un/comment visual region
 - gc | un/comment visual region
-- ]d and [d | go to next/previous diagnostic message
 
 # Marks: store positions in a file
 
@@ -122,9 +122,10 @@ Special registers:
 
 - :sp filename  | Open a file in a new buffer and split window
 - C-ws | Split windows
-- C-ww | switch between windows
-- C-wq | Quit a window
 - C-wv | Split windows vertically
+- C-wc | Close split
+- C-ww | Switch between windows
+- C-wq | Close split and quit file
 
 # Insert mode special keys
 

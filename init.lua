@@ -1,5 +1,12 @@
 if vim.g.neovide then
   vim.o.guifont = 'Hack Nerd Font Mono:h16'
+  -- https://linkarzu.com/posts/neovim/neovim-vs-neovide/
+  vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
+  vim.keymap.set('v', '<D-c>', '"+y') -- Copy
+  vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
+  vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
+  vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
+  vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
 end
 
 -- Set <space> as the leader key
@@ -13,6 +20,8 @@ vim.g.have_nerd_font = false
 
 -- AW change directory to opened file
 vim.opt.autochdir = true
+
+-- vim.env.PATH = vim.env.HOME .. '/.deno/bin:' .. vim.env.PATH
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -122,6 +131,15 @@ vim.api.nvim_create_user_command('Qa', 'qa', {})
 vim.api.nvim_create_user_command('Q', 'q', {})
 -- not allowed unfortunately vim.api.nvim_create_user_command('Q!', 'q!', {})
 
+vim.keymap.set('n', 'gx', '<esc>:URLOpenUnderCursor<cr>', { desc = 'Open URL under cursor' })
+
+-- Open Buffer in chrome on Mac: mostly useful for markdown, html
+function OpenInChrome()
+  local file_path = vim.fn.expand '%:p' -- Get the full path of the current buffer
+  vim.cmd('!open -a "Google Chrome" ' .. file_path)
+end
+vim.api.nvim_set_keymap('n', 'gX', ':lua OpenInChrome()<CR>', { noremap = true, silent = true })
+
 -- ' P' for pasting but keeping the paste register: i.e keep the original yank
 -- https://youtu.be/qZO9A5F6BZs?si=LYLcb5SKOsix6rZy&t=376
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -171,9 +189,113 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
+  -- markdown preview with peek. requires deno
+  -- {
+  --   'toppair/peek.nvim',
+  --   event = { 'VeryLazy' },
+  --   build = 'deno task --quiet build:fast',
+  --   config = function()
+  --     require('peek').setup()
+  --     vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+  --     vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+  --   end,
+  -- },
+
+  -- :[range]Mtoc[!]
+  -- :Mtoc i[nsert]
+  -- :[range]Mtoc u[pdate][!]
+  -- :Mtoc r[emove]
+  {
+    'hedyhli/markdown-toc.nvim',
+    ft = 'markdown', -- Lazy load on markdown filetype
+    cmd = { 'Mtoc' }, -- Or, lazy load on "Mtoc" command
+    opts = {
+      -- Your configuration here (optional)
+    },
+  },
 
   {
+    'gaoDean/autolist.nvim',
+    ft = {
+      'markdown',
+      'text',
+      'tex',
+      'plaintex',
+      'norg',
+    },
+    config = function()
+      require('autolist').setup()
+
+      vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
+      vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
+      -- vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
+      vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>')
+      vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>')
+      vim.keymap.set('n', 'O', 'O<cmd>AutolistNewBulletBefore<cr>')
+      vim.keymap.set('n', '<CR>', '<cmd>AutolistToggleCheckbox<cr><CR>')
+      vim.keymap.set('n', '<C-r>', '<cmd>AutolistRecalculate<cr>')
+
+      -- cycle list types with dot-repeat
+      vim.keymap.set('n', '<leader>cn', require('autolist').cycle_next_dr, { expr = true })
+      vim.keymap.set('n', '<leader>cp', require('autolist').cycle_prev_dr, { expr = true })
+
+      -- if you don't want dot-repeat
+      -- vim.keymap.set("n", "<leader>cn", "<cmd>AutolistCycleNext<cr>")
+      -- vim.keymap.set("n", "<leader>cp", "<cmd>AutolistCycleNext<cr>")
+
+      -- functions to recalculate list on edit
+      vim.keymap.set('n', '>>', '>><cmd>AutolistRecalculate<cr>')
+      vim.keymap.set('n', '<<', '<<<cmd>AutolistRecalculate<cr>')
+      vim.keymap.set('n', 'dd', 'dd<cmd>AutolistRecalculate<cr>')
+      vim.keymap.set('v', 'd', 'd<cmd>AutolistRecalculate<cr>')
+    end,
+  },
+
+  -- AW doesn't work with Mtoc generated TOC links
+  {
+    'jghauser/follow-md-links.nvim',
+    ft = 'markdown',
+  },
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {},
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+  },
+
+  -- {
+  --   'renerocksai/telekasten.nvim',
+  --   dependencies = { 'nvim-telescope/telescope.nvim' },
+  --   config = function()
+  --     require('telekasten').setup {
+  --       home = vim.fn.expand '~/zettelkasten', -- Put the name of your notes directory here
+  --     }
+  --   end,
+  -- },
+
+  {
+    'sontungexpt/url-open',
+    --  :URLOpenUnderCursor	Open url under cursor
+    -- :URLOpenHighlightAll	Highlight all url in current buffer
+    -- :URLOpenHighlightAllClear	Clear all highlight url in current buffer   'sontungexpt/url-open',
+    event = 'VeryLazy',
+    cmd = 'URLOpenUnderCursor',
+    config = function()
+      local status_ok, url_open = pcall(require, 'url-open')
+      if not status_ok then
+        return
+      end
+      url_open.setup {}
+    end,
+  },
+
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
+  -- AW not used enough and distracting
+  --[[ {
     'folke/flash.nvim', -- AW
     event = 'VeryLazy',
     ---@type Flash.Config
@@ -190,18 +312,21 @@ require('lazy').setup({
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
+  --]]
 
-  -- AW try again once this error is gone
-  --     Error executing  vim.on_key Lua callback: vim/_editor.lua:0: Error executing 'on_key' with ns_ids '2'
-  --     Messages: Vim:E1174: String required for argument 1
-  -- stack traceback:
-  --         [C]: in function 'error'
-  --         vim/_editor.lua: in function <vim/_editor.lua:0>
-  -- {
-  --   'm4xshen/hardtime.nvim',
-  --   dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
-  --   opts = {},
-  -- },
+  --  AW try again once this error is gone
+  --[[
+      Error executing  vim.on_key Lua callback: vim/_editor.lua:0: Error executing 'on_key' with ns_ids '2'
+      Messages: Vim:E1174: String required for argument 1
+  stack traceback:
+          [C]: in function 'error'
+          vim/_editor.lua: in function <vim/_editor.lua:0>
+  {
+    'm4xshen/hardtime.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
+    opts = {},
+  },
+--]]
 
   {
     'vigemus/iron.nvim',
@@ -831,6 +956,7 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       signs = false,
+      highlight = { comments_only = false }, -- also want to see this in markdown files
     },
   },
 
@@ -848,6 +974,7 @@ require('lazy').setup({
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - sa(   - Add paren around selection
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
