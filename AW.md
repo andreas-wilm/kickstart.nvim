@@ -66,6 +66,7 @@
 - gg=G | reindent whole file
 - gcc | un/comment visual region
 - gc | un/comment visual region
+- ctrl-o | in insert mode allows to run one normal mode command
 
 # Marks: store positions in a file
 
@@ -77,13 +78,13 @@
 
 # Jumps
 
-- C-o and C-i | go through jumplist, i.e previous cursor positions
-- C-t jump in tag stack
-- Both work after e.g. <leader>gd
-- [[ and ]] | jump to beginning of next/last function
-- ][ and [] | jump to next/previous function end
-- [[V][ select function from anywhere within function
-- [m or [M | jump to start of next/previous function start
+- `C-o` and `C-i` | go through jumplist, i.e previous cursor positions
+- `C-t` jump in tag stack
+- Both work after e.g. `<leader>gd`
+- `[[` and `]]` | jump to beginning of next/last function
+- `][` and `[]` | jump to next/previous function end
+- `[[V][` select function from anywhere within function
+- `[m` or `[M` | jump to start of next/previous function start
 
 # Macros (from https://wicowen.github.io/2016-0420-1041-Vim-marco-cheat-sheet/)
 
@@ -97,6 +98,8 @@
 
 - :reg | list all registers
 - "<name><cmd> | run command cmd on register name, e.g. "ay and "ap
+- " in insert mode will bring up register preview
+- ctrl-r in insert mode can paste registers (and brings up review)
 
 Special registers:
 
