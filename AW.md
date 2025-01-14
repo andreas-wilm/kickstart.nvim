@@ -114,21 +114,25 @@ Special registers:
 
 - v | visual mode
 - V | visual line mode
-- o | jump between visually selected area start/end
+- o | jump between visually selected area start/end, e.g. to prepend/append to the selection
 - gv | reselect previously visually selected area
 - C-v | rectangle selection (works with motion)
 - C-a | increment number under cursor or first thing to increment in selection
 - C-x | decrement number under cursor or first thing to decrement in selection
 - vi" | select everything within quotes
 
-# Splits
+# Splits/Windows
 
 - :sp filename  | Open a file in a new buffer and split window
+- :vsplit | vertical split
+
 - C-ws | Split windows
 - C-wv | Split windows vertically
 - C-wc | Close split
-- C-ww | Switch between windows
 - C-wq | Close split and quit file
+
+- C-\[hjkl\] | Move between windows
+- - C-ww     | Cycle between windows
 
 # Insert mode special keys
 
@@ -152,9 +156,12 @@ Special registers:
 - gr | go to / find references
 - gd | go to / find definition
 
+- <leader>tt | Toggle floating terminal
+- <esc><esc> | Escape terminal mode (default is C-\ C-n)
 Telescope
 
 - <leader>sf | search files
+- <leader>s. | search recent files
 - <leader>sk | search keymap
 - <leader>sh | search help
 - <leader><leader>| search buffers

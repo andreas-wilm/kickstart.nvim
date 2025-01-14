@@ -7,6 +7,7 @@ if vim.g.neovide then
   vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
   vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
   vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
+  vim.api.nvim_set_keymap('n', '<C-z>', '<NOP>', { noremap = true, silent = true })
 end
 
 -- Set <space> as the leader key
@@ -164,6 +165,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
   end,
 })
 
