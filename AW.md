@@ -1,13 +1,8 @@
 # TODO
 
-- Different buffers:
-  :bnext
-  :bprevious
-  :bd | delete buffer (don't quit vim)
-  telescope: leader leader
+
 - explore undotree
-- modularize init.vim
- https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/
+- [modularize init.vim](https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/)
 - override filetype for v from verilog to v (:set ft=v)
 - i" etc searches on entire line?
 - flash docu incl remote actions
@@ -134,6 +129,14 @@ Special registers:
 - C-\[hjkl\] | Move between windows
 - - C-ww     | Cycle between windows
 
+# buffers
+
+- telescope: leader leader
+- vanilla
+- :bnext
+- :bprevious
+- :bd | delete buffer (don't quit vim)
+
 # Insert mode special keys
 
 - C-o | execute once in normal mode
@@ -158,6 +161,7 @@ Special registers:
 
 - <leader>tt | Toggle floating terminal
 - <esc><esc> | Escape terminal mode (default is C-\ C-n)
+
 Telescope
 
 - <leader>sf | search files

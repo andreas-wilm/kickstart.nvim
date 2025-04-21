@@ -199,6 +199,36 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 
+  {
+    'glacambre/firenvim',
+    build = ':call firenvim#install(0)',
+    config = function()
+      -- vim.g.firenvim_config = vim.g.firenvim_config or { localSettings = {} }
+      vim.g.firenvim_config = {
+        globalSettings = {},
+        localSettings = {
+          ['.*'] = {
+            takeover = 'never',
+          },
+        },
+      }
+      vim.g.firenvim_config.localSettings['.*'] = {
+        -- remove mouse trigger, forcing to set up custom keybind in browser settings.
+        takeover = 'never',
+      }
+      vim.api.nvim_create_autocmd({ 'UIEnter' }, {
+        callback = function(event)
+          local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
+          if client ~= nil and client.name == 'Firenvim' then
+            vim.o.laststatus = 0
+            vim.o.lines = 10
+            vim.o.columns = 100
+          end
+        end,
+      })
+    end,
+  },
+
   -- :[range]Mtoc[!]
   -- :Mtoc i[nsert]
   -- :[range]Mtoc u[pdate][!]
@@ -1075,5 +1105,6 @@ require('lazy').setup({
     },
   },
 })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
