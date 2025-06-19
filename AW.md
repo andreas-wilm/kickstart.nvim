@@ -126,7 +126,7 @@ Special registers:
 - C-wc | Close split
 - C-wq | Close split and quit file
 
-- C-\[hjkl\] | Move between windows
+- C-w\[hjkl\] | Move between windows
 - - C-ww     | Cycle between windows
 
 # buffers
