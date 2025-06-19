@@ -243,6 +243,10 @@ require('lazy').setup({
   },
 
   {
+    'nextflow-io/vim-language-nextflow',
+  },
+
+  {
     'gaoDean/autolist.nvim',
     ft = {
       'markdown',
