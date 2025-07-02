@@ -234,7 +234,9 @@ Mini
 
 
 
-# Log
+# LSP
+
+LSPs might have to be installed separately via Mason!
 
 ## Python
 
