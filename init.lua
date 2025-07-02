@@ -4,14 +4,12 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-require 'custom.neovide'
-
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
 -- AW change directory to opened file
 vim.opt.autochdir = false
--- vim.env.PATH = vim.env.HOME .. '/.deno/bin:' .. vim.env.PATH
+vim.env.PATH = vim.env.HOME .. '/.deno/bin:' .. vim.env.PATH
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -22,13 +20,13 @@ vim.opt.autochdir = false
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.o.relativenumber = true
+-- vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.o.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+vim.o.showmode = false
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -55,7 +53,6 @@ vim.o.signcolumn = 'yes'
 vim.o.updatetime = 250
 
 -- Decrease mapped sequence wait time
--- Displays which-key popup sooner
 vim.o.timeoutlen = 300
 
 -- Configure how new splits should be opened
@@ -74,13 +71,18 @@ vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.o.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.o.scrolloff = 10
+
+-- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
+-- instead raise a dialog asking if you wish to save the current file(s)
+-- See `:help 'confirm'`
+vim.o.confirm = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -105,10 +107,16 @@ vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
 -- AW disabling pageup and down which made my hand move from homerow
 vim.keymap.set('n', '<PageUp>', '<cmd>echo "Use C-y|u|b to move!!"<CR>')
 vim.keymap.set('n', '<PageDown>', '<cmd>echo "Use C-e|d|f to move!!"<CR>')
+-- catch W and Q commands with accidentally pressed shift
+vim.api.nvim_create_user_command('WQ', 'wq', {})
+vim.api.nvim_create_user_command('Wq', 'wq', {})
+vim.api.nvim_create_user_command('W', 'w', {})
+vim.api.nvim_create_user_command('Qa', 'qa', {})
+vim.api.nvim_create_user_command('Q', 'q', {})
+-- not allowed unfortunately vim.api.nvim_create_user_command('Q!', 'q!', {})
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -119,28 +127,29 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- catch W and Q commands with accidentally pressed shift
-vim.api.nvim_create_user_command('WQ', 'wq', {})
-vim.api.nvim_create_user_command('Wq', 'wq', {})
-vim.api.nvim_create_user_command('W', 'w', {})
-vim.api.nvim_create_user_command('Qa', 'qa', {})
-vim.api.nvim_create_user_command('Q', 'q', {})
--- not allowed unfortunately vim.api.nvim_create_user_command('Q!', 'q!', {})
-
--- AW see also gX below
-vim.keymap.set('n', 'gx', '<esc>:URLOpenUnderCursor<cr>', { desc = 'Open URL under cursor' })
-
--- Open Buffer in Chrome (on Mac): for rendering html and markdown
-function OpenInChrome()
-  local file_path = vim.fn.expand '%:p' -- Get the full path of the current buffer
-  vim.cmd('!open -a "Google Chrome" ' .. file_path)
-end
--- AW: see also gX above
-vim.api.nvim_set_keymap('n', 'gX', ':lua OpenInChrome()<CR>', { noremap = true, silent = true })
+-- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
+-- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
+-- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
+-- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
+-- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- ' P' for pasting but keeping the paste register: i.e keep the original yank
 -- https://youtu.be/qZO9A5F6BZs?si=LYLcb5SKOsix6rZy&t=376
 vim.keymap.set('x', '<leader>p', [["_dP]])
+
+-- [[ Basic Autocommands ]]
+--  See `:help lua-guide-autocommands`
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.hl.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
 
 -- AW vlang recognized as verilog
 vim.cmd 'autocmd BufRead,BufNewFile *.v set filetype=v'
@@ -151,27 +160,9 @@ vim.cmd 'autocmd BufRead,BufNewFile *.v set filetype=v'
 --  },
 -- }
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
+require 'custom.neovide'
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
-vim.api.nvim_create_autocmd('TermOpen', {
-  group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
-  callback = function()
-    vim.opt.number = false
-    vim.opt.relativenumber = false
-  end,
-})
+require 'custom.buffer_to_browser'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -185,7 +176,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 ---@type vim.Option
----
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
@@ -222,10 +212,8 @@ require('lazy').setup({
   --        end,
   --    }
   --
-
   -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
+  -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -252,9 +240,8 @@ require('lazy').setup({
   -- which loads which-key before all the UI elements are loaded. Events can be
   -- normal autocommands events (`:help autocmd-events`).
   --
-  -- Then, because we use the `config` key, the configuration only runs
-  -- after the plugin has been loaded:
-  --  config = function() ... end
+  -- Then, because we use the `opts` key (recommended), the configuration runs
+  -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -299,6 +286,7 @@ require('lazy').setup({
           F12 = '<F12>',
         },
       },
+
       -- Document existing key chains
       spec = {
         { '<leader>s', group = '[S]earch' },
@@ -318,7 +306,6 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -757,12 +744,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -793,7 +780,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -882,6 +869,9 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      -- AW visual marker, but these days also pointed out by LSP. Delete?
+      require('mini.trailspace').setup()
+
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -959,7 +949,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
