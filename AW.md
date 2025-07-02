@@ -2,21 +2,18 @@
 
 
 - explore undotree
-- [modularize init.vim](https://www.reddit.com/r/neovim/comments/19dkno2/i_need_help_modularizing_my_kickstartnvim/)
-- override filetype for v from verilog to v (:set ft=v)
-- i" etc searches on entire line?
-- flash docu incl remote actions
-
+- explore friendly snippets
+-
 # Learn
 
 - :help or :h | helpV
 - :h keyword | help for keyword
 - :h key | help for key
 - <leader>sh | shortcut search help (custom)
+- which-key
 
 # Notes
 
-- telescope <leader>s and flash search s clash. Type fast for telescope use
 - markdown headers can be jumped as usual with [[ and ]]
 
 # Stuff
@@ -158,9 +155,6 @@ Special registers:
 
 - gr | go to / find references
 - gd | go to / find definition
-
-- <leader>tt | Toggle floating terminal
-- <esc><esc> | Escape terminal mode (default is C-\ C-n)
 
 Telescope
 
