@@ -3,7 +3,7 @@
 
 - explore undotree
 - explore friendly snippets
-
+- yiw | go to new word | viw | p
 
 # Learn
 
@@ -50,13 +50,13 @@
 - gc | un/comment visual region
 - gU<motion> or gu<motion> | to change everything in motin to Upper or lower case
 
-- :!cmd | to run cmd (optionally works on and replaces selection)
-- :r !cmd | run cmd and insert output
+- :! cmd  | run shell command. if text is selection run on selection and replace. otherwise display output in temp buffer
+- :w !cmd | run shell command on selection and display in temp buffer
+- :r !cmd | run cmd (on selection) and append output
 - :r FILE | retrieves/inserts files
 
-- r<CHAR> | replace character under cursor with CHAR
-- R | replace mode, i.e. keep replacing
-
+ r<CHAR> | replace character under cursor with CHAR
+ R | replace mode, i.e. keep replacing
 
 # Lines
 
