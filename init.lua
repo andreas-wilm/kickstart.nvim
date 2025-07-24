@@ -799,7 +799,7 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
@@ -871,6 +871,10 @@ require('lazy').setup({
 
       -- AW visual marker, but these days also pointed out by LSP. Delete?
       require('mini.trailspace').setup()
+
+      require('mini.misc').setup()
+      --  Set up automated change of current directory
+      MiniMisc.setup_auto_root()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
