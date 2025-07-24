@@ -26,6 +26,8 @@
 - u | undo
 - i | insert before cursor
 - a | insert after cursor
+- I | insert mode at beginning of line
+- A | insert mode at end of line
 - cw | change word (everything up from cursor)
 - ciw | change inside word
 - C-6 | go back to previous file (<CTRL>^)
